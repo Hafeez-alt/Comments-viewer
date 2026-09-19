@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Comments Viewer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ================= AUTH SECTION ================= -->
+
+    <div id="authContainer" class="auth-container">
+
+        <!-- Login Form -->
+        <div id="loginBox" class="auth-box">
+
+            <div class="auth-logo">
+                💬
+            </div>
+
+            <h1>Comments Viewer</h1>
+            <p class="auth-subtitle">
+                Discover, share and save your favorite comments
+            </p>
+
+            <form id="loginForm">
+
+                <div class="input-group">
+                    <label>Username</label>
+                    <input
+                        type="text"
+                        id="loginUsername"
+                        placeholder="Enter username"
+                        required
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="primary-btn">
+                    🔐 Login
+                </button>
+
+            </form>
+
+            <p class="switch-text">
+                Don't have an account?
+                <button id="showRegisterBtn" class="link-btn">
+                    Create New Account
+                </button>
+            </p>
+
+            <p id="loginMessage" class="message"></p>
+        </div>
+
+
+        <!-- Register Form -->
+        <div id="registerBox" class="auth-box hidden">
+
+            <div class="auth-logo">
+                ✨
+            </div>
+
+            <h1>Create Account</h1>
+            <p class="auth-subtitle">
+                Join Comments Viewer today
+            </p>
+
+            <form id="registerForm">
+
+                <div class="input-group">
+                    <label>Username</label>
+                    <input
+                        type="text"
+                        id="registerUsername"
+                        placeholder="Create username"
+                        required
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        id="registerPassword"
+                        placeholder="Create password"
+                        required
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label>Confirm Password</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="primary-btn">
+                    📝 Create Account
+                </button>
+
+            </form>
+
+            <p class="switch-text">
+                Already have an account?
+                <button id="showLoginBtn" class="link-btn">
+                    Login
+                </button>
+            </p>
+
+            <p id="registerMessage" class="message"></p>
+        </div>
+
+    </div>
+
+
+    <!-- ================= MAIN APPLICATION ================= -->
+
+    <div id="appContainer" class="app-container hidden">
+
+        <!-- Navbar -->
+        <nav class="navbar">
+
+            <div class="brand">
+                <div class="brand-logo">💬</div>
+                <div>
+                    <h2>Comments Viewer</h2>
+                    <span>Connect through conversations</span>
+                </div>
+            </div>
+
+            <div class="nav-links">
+
+                <a href="#" data-page="home" class="nav-link active">
+                    🏠 Home
+                </a>
+
+                <a href="#" data-page="about" class="nav-link">
+                    ℹ️ About
+                </a>
+
+                <a href="#" data-page="comments" class="nav-link">
+                    💭 Comments
+                </a>
+
+                <a href="#" data-page="post-comment" class="nav-link">
+                    📝 Post Comment
+                </a>
+
+                <a href="#" data-page="favorites" class="nav-link">
+                    ❤️ Favorites
+                    <span id="navFavoriteCount" class="nav-count">0</span>
+                </a>
+
+                <a href="#" data-page="contact" class="nav-link">
+                    📩 Contact
+                </a>
+
+            </div>
+
+            <div class="nav-right">
+
+                <div class="user-greeting">
+                    👋 Hello,
+                    <strong id="navUsername">User</strong>
+                </div>
+
+                <button id="logoutBtn" class="logout-btn">
+                    🚪 Logout
+                </button>
+
+            </div>
+
+        </nav>
+
+
+        <!-- ================= HOME PAGE ================= -->
+
+        <section id="homePage" class="page-section active-page">
+
+            <div class="hero-section">
+
+                <div class="hero-content">
+                    <span class="hero-tag">WELCOME TO COMMENTS VIEWER</span>
+
+                    <h1>
+                        Explore ideas.<br>
+                        Share thoughts.<br>
+                        Save what matters.
+                    </h1>
+
+                    <p>
+                        Read interesting comments, discover different topics,
+                        post your own thoughts, and save your favorite comments
+                        for later.
+                    </p>
+
+                    <button class="primary-btn" id="exploreCommentsBtn">
+                        🚀 Explore Comments
+                    </button>
+                </div>
+
+                <div class="hero-art">
+                    <div class="floating-card card-one">💬 Great discussion!</div>
+                    <div class="floating-card card-two">❤️ Saved for later</div>
+                    <div class="floating-card card-three">✨ Share your ideas</div>
+
+                    <div class="hero-circle">
+                        💭
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">💬</div>
+                    <div>
+                        <h3 id="totalComments">0</h3>
+                        <p>Total Comments</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div>
+                        <h3 id="uniqueUsers">0</h3>
+                        <p>Unique Users</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">❤️</div>
+                    <div>
+                        <h3 id="totalFavorites">0</h3>
+                        <p>Favorite Comments</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">📂</div>
+                    <div>
+                        <h3 id="totalCategories">0</h3>
+                        <p>Categories</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ABOUT PAGE ================= -->
+
+        <section id="aboutPage" class="page-section">
+
+            <div class="page-heading">
+                <span class="section-label">ABOUT OUR PLATFORM</span>
+                <h1>Everything about Comments Viewer</h1>
+                <p>
+                    Comments Viewer is a simple and interactive platform where
+                    users can read, organize, post, and save comments.
+                </p>
+            </div>
+
+            <div class="about-grid">
+
+                <div class="about-card">
+                    <div class="about-icon">🔍</div>
+                    <h3>Explore Comments</h3>
+                    <p>
+                        Browse comments collected from an online API.
+                        Comments are organized into different categories
+                        such as Technology, Sports, Education, Movies,
+                        Travel, Health, Business, and General.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-icon">📝</div>
+                    <h3>Post Your Thoughts</h3>
+                    <p>
+                        Users can write their own comments by entering
+                        their username, email, category, and message.
+                        Posted comments are stored in the browser.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-icon">❤️</div>
+                    <h3>Save Favorites</h3>
+                    <p>
+                        If you like a comment, click the favorite button.
+                        The comment will be stored in your Favorites page
+                        even after refreshing the browser.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-icon">🔐</div>
+                    <h3>Simple Account System</h3>
+                    <p>
+                        Users can create an account and log in.
+                        Account details and session information are stored
+                        locally in the browser using LocalStorage.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="about-process">
+
+                <h2>How Comments Viewer Works</h2>
+
+                <div class="process-list">
+
+                    <div class="process-item">
+                        <span>1</span>
+                        <div>
+                            <h3>Login or Create an Account</h3>
+                            <p>Access the application using your account.</p>
+                        </div>
+                    </div>
+
+                    <div class="process-item">
+                        <span>2</span>
+                        <div>
+                            <h3>Read Comments</h3>
+                            <p>View comments and filter them by category.</p>
+                        </div>
+                    </div>
+
+                    <div class="process-item">
+                        <span>3</span>
+                        <div>
+                            <h3>Favorite Comments</h3>
+                            <p>Click the heart icon to save comments.</p>
+                        </div>
+                    </div>
+
+                    <div class="process-item">
+                        <span>4</span>
+                        <div>
+                            <h3>Post Your Comment</h3>
+                            <p>Share your own thoughts with other users.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="technology-box">
+                <h2>Technologies Used</h2>
+
+                <div class="technology-list">
+                    <span>HTML5</span>
+                    <span>CSS3</span>
+                    <span>JavaScript</span>
+                    <span>Fetch API</span>
+                    <span>LocalStorage</span>
+                    <span>JSONPlaceholder API</span>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ================= COMMENTS PAGE ================= -->
+
+        <section id="commentsPage" class="page-section">
+
+            <div class="page-heading">
+                <span class="section-label">DISCOVER CONVERSATIONS</span>
+                <h1>All Comments</h1>
+                <p>Read comments and save the ones you like.</p>
+            </div>
+
+            <div class="comment-tools">
+
+                <div>
+                    <label for="categoryFilter">Filter by Category</label>
+
+                    <select id="categoryFilter">
+                        <option value="All">All Categories</option>
+                    </select>
+                </div>
+
+                <div class="comment-info">
+                    ❤️ Click the heart icon to add a favorite
+                </div>
+
+            </div>
+
+            <div id="categorySummary" class="category-summary"></div>
+
+            <div id="commentsLoading" class="loading-box">
+                ⏳ Loading comments...
+            </div>
+
+            <div id="commentsError" class="error-box hidden">
+                ❌ Unable to load comments. Please try again.
+            </div>
+
+            <div id="commentsContainer" class="comments-grid"></div>
+
+        </section>
+
+
+        <!-- ================= POST COMMENT PAGE ================= -->
+
+        <section id="post-commentPage" class="page-section">
+
+            <div class="page-heading">
+                <span class="section-label">SHARE YOUR THOUGHTS</span>
+                <h1>Post a Comment</h1>
+                <p>
+                    Write something meaningful and share it with the community.
+                </p>
+            </div>
+
+            <div class="form-card">
+
+                <form id="postCommentForm">
+
+                    <div class="form-row">
+
+                        <div class="input-group">
+                            <label for="postUsername">Username</label>
+                            <input
+                                type="text"
+                                id="postUsername"
+                                placeholder="Enter username"
+                                required
+                            >
+                        </div>
+
+                        <div class="input-group">
+                            <label for="postEmail">Email</label>
+                            <input
+                                type="email"
+                                id="postEmail"
+                                placeholder="Enter email"
+                                required
+                            >
+                        </div>
+
+                    </div>
+
+                    <div class="input-group">
+                        <label for="postCategory">Category</label>
+
+                        <select id="postCategory" required>
+                            <option value="">Select category</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="postBody">Your Comment</label>
+
+                        <textarea
+                            id="postBody"
+                            rows="7"
+                            placeholder="Write your comment here..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="primary-btn">
+                        🚀 Publish Comment
+                    </button>
+
+                    <p id="postMessage" class="message"></p>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FAVORITES PAGE ================= -->
+
+        <section id="favoritesPage" class="page-section">
+
+            <div class="page-heading">
+                <span class="section-label">YOUR PERSONAL COLLECTION</span>
+                <h1>Favorite Comments ❤️</h1>
+                <p>
+                    All comments you liked are saved here for easy access.
+                </p>
+            </div>
+
+            <div id="favoritesEmpty" class="empty-box hidden">
+                <div class="empty-icon">💔</div>
+                <h2>No Favorites Yet</h2>
+                <p>
+                    Click the heart icon on any comment to save it here.
+                </p>
+
+                <button id="goToCommentsBtn" class="primary-btn">
+                    💬 View Comments
+                </button>
+            </div>
+
+            <div id="favoritesContainer" class="comments-grid"></div>
+
+        </section>
+
+
+        <!-- ================= CONTACT PAGE ================= -->
+
+        <section id="contactPage" class="page-section">
+
+            <div class="page-heading">
+                <span class="section-label">GET IN TOUCH</span>
+                <h1>Contact Us</h1>
+                <p>
+                    Have a question or suggestion? Send us a message.
+                </p>
+            </div>
+
+            <div class="form-card contact-card">
+
+               <form id="contactForm">
+
+    <div class="input-group">
+        <label for="contactName">Name</label>
+        <input
+            type="text"
+            id="contactName"
+            placeholder="Enter your name"
+            required
+        >
+    </div>
+
+    <div class="input-group">
+        <label for="contactEmail">Email</label>
+        <input
+            type="email"
+            id="contactEmail"
+            placeholder="Enter your email"
+            required
+        >
+    </div>
+
+    <div class="input-group">
+        <label for="contactMessage">Message</label>
+        <textarea
+            id="contactMessage"
+            rows="6"
+            placeholder="Write your message..."
+            required
+        ></textarea>
+    </div>
+
+    <button type="submit" class="primary-btn" id="sendMessageBtn">
+        📩 Send Message
+    </button>
+
+    <p id="contactResponse" class="message"></p>
+
+</form>
+
+            </div>
+
+        </section>
+
+<footer class="footer">
+
+    <div class="footer-content">
+
+        <div class="footer-brand">
+            <div class="footer-logo">💬</div>
+
+            <h2>Comments Viewer</h2>
+
+            <p>
+                A simple platform to explore conversations,
+                share thoughts, and save meaningful comments.
+            </p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+
+            <a href="#" data-page="home">🏠 Home</a>
+            <a href="#" data-page="about">ℹ️ About</a>
+            <a href="#" data-page="comments">💭 Comments</a>
+            <a href="#" data-page="favorites">❤️ Favorites</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>Features</h3>
+
+            <p>💬 Read Comments</p>
+            <p>📝 Post Comments</p>
+            <p>❤️ Save Favorites</p>
+            <p>🔐 Secure Login</p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Contact</h3>
+
+            <p>📩 Send us a message</p>
+            <p>🌐 Online Comment Platform</p>
+            <p>⚡ Fast and Simple Interface</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>
+            © 2026 Comments Viewer. All Rights Reserved.
+        </p>
+
+        <p>
+            Made with ❤️ using HTML, CSS and JavaScript
+        </p>
+    </div>
+
+</footer>
+
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
